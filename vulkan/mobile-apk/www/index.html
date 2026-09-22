@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Vulkan</title>
+<style>
+  html,body{margin:0;height:100%;font-family:system-ui,sans-serif;color:#e8f0ff;
+    background:linear-gradient(160deg,#050d1c,#0a1b3d 55%,#03070f);}
+  .wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    height:100%;gap:16px;padding:24px;text-align:center}
+  img{width:88px;height:88px;border-radius:20px}
+  input{font:inherit;color:#e8f0ff;background:rgba(4,14,32,.7);border:1px solid rgba(120,170,255,.2);
+    border-radius:10px;padding:12px;width:100%;max-width:300px;text-align:center}
+  button{font:inherit;color:#fff;background:linear-gradient(180deg,#2f81f7,#1d5fc4);
+    border:none;border-radius:10px;padding:13px 26px;width:100%;max-width:300px;font-weight:600}
+  p{color:#8fa8cc;font-size:13px;max-width:320px;line-height:1.5;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img src="icon.png" alt="" />
+  <h2 style="margin:0">Vulkan</h2>
+  <p>Enter the IP address shown in the Vulkan PC app, then connect. Your phone
+     must be on the same Wi-Fi network as the PC.</p>
+  <input id="ip" placeholder="192.168.1.42:8420" />
+  <button onclick="go()">Connect</button>
+  <p id="hint"></p>
+</div>
+<script>
+  // Remembers the last host so it's one tap next time.
+  const saved = localStorage.getItem('vulkan_host');
+  if (saved) document.getElementById('ip').value = saved;
+
+  function go() {
+    let host = document.getElementById('ip').value.trim();
+    if (!host) return;
+    if (!host.includes(':')) host += ':8420';
+    localStorage.setItem('vulkan_host', host);
+    location.href = 'http://' + host + '/m';
+  }
+</script>
+</body>
+</html>

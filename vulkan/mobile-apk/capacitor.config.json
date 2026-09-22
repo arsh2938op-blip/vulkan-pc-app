@@ -1,0 +1,12 @@
+{
+  "appId": "com.vulkan.control",
+  "appName": "Vulkan",
+  "webDir": "www",
+  "server": {
+    "cleartext": true,
+    "androidScheme": "http"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}

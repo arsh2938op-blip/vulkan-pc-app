@@ -1,0 +1,6 @@
+# Vulkan control app — PC side
+rcute-cozmars>=1.5.0     # official Cozmars SDK (talks to the Pi server)
+aiohttp>=3.9.0           # local web server for the PC + mobile UIs
+pywebview>=4.4.1         # native desktop window shell (optional; see README)
+opencv-python>=4.8.0     # JPEG encoding for the camera stream
+numpy>=1.24.0

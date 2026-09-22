@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>Vulkan</title>
+<link rel="icon" href="/static/icon.png" />
+<link rel="manifest" href="/static/manifest.webmanifest" />
+<meta name="theme-color" content="#0a1b3d" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="/static/icon.png" />
+<link rel="stylesheet" href="/static/style.css" />
+<style>
+  body { overflow: hidden; overscroll-behavior: none; }
+  .app { display: flex; flex-direction: column; height: 100dvh; padding: 10px; gap: 10px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; }
+  .bar .brand { display: flex; align-items: center; gap: 8px; font-weight: 650; }
+  .bar img { width: 22px; height: 22px; border-radius: 6px; }
+  .tabs { display: flex; gap: 6px; }
+  .tabs button { flex: 1; padding: 9px; font-size: 13px; }
+  .page { display: none; flex: 1; min-height: 0; flex-direction: column; gap: 10px; }
+  .page.on { display: flex; }
+
+  /* joystick */
+  #stickZone {
+    flex: 1; min-height: 190px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    touch-action: none;
+  }
+  #base {
+    width: 190px; height: 190px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, rgba(47,129,247,.22), rgba(6,16,36,.85));
+    border: 1px solid var(--line); position: relative;
+  }
+  #knob {
+    width: 76px; height: 76px; border-radius: 50%;
+    background: linear-gradient(180deg, var(--blue-bright), #1d5fc4);
+    border: 1px solid rgba(160,210,255,.5);
+    box-shadow: 0 6px 22px rgba(47,129,247,.45);
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    touch-action: none;
+  }
+  .sliderRow { display: flex; align-items: center; gap: 10px; padding: 0 12px 10px; }
+  .sliderRow input { flex: 1; accent-color: var(--blue-bright); }
+  .sliderRow span { font-size: 12px; color: var(--text-dim); min-width: 52px; }
+  #mlog { flex: 1; min-height: 0; }
+  .pad { padding: 12px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="panel bar">
+    <div class="brand"><img src="/static/icon.png" alt="" />Vulkan</div>
+    <span class="chip"><span id="dot" class="dot off"></span><span id="connText">Offline</span></span>
+  </div>
+
+  <div class="tabs">
+    <button id="tDrive" class="on">Drive</button>
+    <button id="tCam">Camera</button>
+    <button id="tChat">Chat</button>
+  </div>
+
+  <!-- DRIVE -->
+  <div id="pDrive" class="page on">
+    <div class="panel" style="display:flex;gap:8px;padding:10px">
+      <button id="mManual" class="on" style="flex:1">Manual</button>
+      <button id="mAuto" style="flex:1">Auto</button>
+    </div>
+
+    <div class="panel" id="stickZone">
+      <div id="base"><div id="knob"></div></div>
+    </div>
+
+    <div class="panel">
+      <div class="sliderRow" style="padding-top:12px">
+        <span>Arms</span>
+        <input id="mLift" type="range" min="0" max="100" value="0" />
+      </div>
+      <div class="sliderRow">
+        <span>Head</span>
+        <input id="mHead" type="range" min="0" max="100" value="50" />
+      </div>
+    </div>
+  </div>
+
+  <!-- CAMERA -->
+  <div id="pCam" class="page">
+    <div class="panel pad" style="flex:1;display:flex;align-items:center;justify-content:center">
+      <img id="mcam" class="cam" style="display:none" alt="Robot camera" />
+      <div id="mcamEmpty" class="cam cam-empty">Connect the robot to see the camera.</div>
+    </div>
+    <div class="panel pad" style="display:flex;gap:8px">
+      <button data-color="blue" style="flex:1">Blue</button>
+      <button data-color="cyan" style="flex:1">Cyan</button>
+      <button data-color="white" style="flex:1">White</button>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="pChat" class="page">
+    <div class="panel pad" style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h2>Chat</h2>
+        <select id="mTarget">
+          <option value="robot">🤖 Robot</option>
+          <option value="pc">📱 Phone</option>
+        </select>
+      </div>
+      <div id="mlog" class="log"></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <input id="mmsg" placeholder="Message…" style="flex:1" />
+        <button id="mMic">🎤</button>
+        <button id="mSend" class="primary">↑</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/static/mobile.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+node_modules/
+mobile-apk/android/
+mobile-apk/node_modules/
